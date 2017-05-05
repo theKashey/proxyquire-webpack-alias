@@ -69,4 +69,5 @@ export {
 delete require.cache[require.resolve(__filename)];
 
 module.exports = new WebpackAliasProxyquire(module.parent);
+module.exports.Class = WebpackAliasProxyquire;
 module.exports.configure = configure;

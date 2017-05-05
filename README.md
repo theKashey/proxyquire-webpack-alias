@@ -14,8 +14,7 @@ For `proxyquire` API see [its repo](https://github.com/theKashey/proxyquire).
 Behavior similar to [babel-plugin-webpack-alias](https://github.com/trayio/babel-plugin-webpack-alias/)
 
 Next you can use alises as names of deps to be mocked.
- 
- 
+  
 # Using proxyquire
 
 So you have one file. You use webpack alises and address other files using them.
@@ -59,6 +58,23 @@ const mocked = proxyquire.noUnusedStubs().('source.js',{
   'core/something': mock, 
   'component/something': something,// <-- typo. And stub will be unsued.
 });
+```
+ 
+If you want to extend proxyquire, and use it indirectly - you have to add some magic
+```js
+import proxyquire from 'my-proxyquire';
+```
+Where my-proxyquire.js is
+```js
+import proxyquire from 'proxyquire-webpack-alias';
 
-``` 
+// this one creates `special` proxyquire for the file it use
+const myProxyquire = new proxyquire.Class(module.parent);
+
+// and this prevent caching. So in new place you will get new class
+delete require.cache[require.resolve(__filename)];
+
+export default myProxyquire;
+```
+ 
 PS: This is not wrapper around [proxyquire](https://github.com/thlorenz/proxyquire), this is wrapper around [proxyquire-2](https://github.com/theKashey/proxyquire).

@@ -1,6 +1,6 @@
 {
   "name": "proxyquire-webpack-alias",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Proxyquire for ES5 modules",
   "main": "lib/index.js",
   "scripts": {
