@@ -1,6 +1,6 @@
 {
   "name": "proxyquire-webpack-alias",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Proxyquire for ES5 modules",
   "main": "lib/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "lodash.some": "^4.6.0",
     "lodash.template": "^4.4.0",
-    "proxyquire-2": "^1.0.1"
+    "proxyquire-2": "^1.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
