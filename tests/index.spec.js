@@ -9,7 +9,7 @@ describe('proxyquire ', () => {
     it('check default behavior: ', () => {
         configure(aliasConfig);
         const baz = proxyquire('./lib/a/test.js', {});
-        expect(baz()).to.be.equal('foobar');
+        expect(baz()).to.be.equal('foobarbaz');
     });
 
     it('should overload by alias: ', () => {
@@ -20,8 +20,11 @@ describe('proxyquire ', () => {
             },
             'same-folder-lib/bar': function () {
                 return 'bb'
+            },
+            '../b/baz': function () {
+                return 'cc'
             }
         });
-        expect(baz()).to.be.equal('aabb');
+        expect(baz()).to.be.equal('aabbcc');
     });
 });

@@ -1,4 +1,4 @@
-import path from 'path';
+import {dirname, normalize} from 'path';
 import Proxyquire from 'proxyquire-2/lib/proxyquire';
 
 import {readAlises, processFile} from './getResolver';
@@ -6,23 +6,27 @@ import {readAlises, processFile} from './getResolver';
 let settings;
 
 function nameResolver(stubs, fileName, module) {
-    var dirname = module ? path.dirname(module) : '';
-    var requireName = fileName;
-    if (dirname) {
-        requireName = fileName.charAt(0) == '.' ? path.normalize(dirname + '/' + fileName) : fileName;
+    const activeDir = module ? dirname(module) : '';
+    let requireName = fileName;
+    if (activeDir) {
+        requireName = fileName.charAt(0) == '.' ? normalize(activeDir + '/' + fileName) : fileName;
     }
-    if (stubs[requireName]) {
-        return {
-            key: requireName,
-            stub: stubs[requireName]
+    const tryPath = (path)=> {
+        if (stubs[path]) {
+            return {
+                key: path,
+                stub: stubs[path]
+            }
         }
-    }
+    };
+    return tryPath(requireName) || tryPath(fileName);
 }
 
 function transformStubs(stubs) {
     let result = {};
     for (const i in stubs) {
-        result[processFile(i, settings)] = stubs[i];
+        let stubName = processFile(i, settings);
+        result[stubName || i] = stubs[i];
     }
     return result;
 }

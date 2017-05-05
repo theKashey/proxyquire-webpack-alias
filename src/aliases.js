@@ -133,7 +133,7 @@ function processFile(filePath, { aliasConf, extensionsConf }) {
                 const isModule = !notModuleRegExp.test(aliasTo);
 
                 if (isModule) {
-                    return aliasTo
+                    return aliasTo;
                 }
 
                 // If the filepath is not absolute, make it absolute
