@@ -27,6 +27,12 @@ function transformStubs(stubs) {
     return result;
 }
 
+/**
+ * @class WebpackAliasProxyquire
+ * @extends {Proxyquire}
+ * @returns {*}
+ * @constructor
+ */
 function WebpackAliasProxyquire() {
     var result = Proxyquire.prototype.constructor.apply(this, arguments);
     result.resolveNames(nameResolver);
