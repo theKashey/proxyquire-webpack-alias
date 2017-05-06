@@ -2,7 +2,9 @@
 
 [![NPM](https://nodei.co/npm/proxyquire-webpack-alias.png?downloads=true&stars=true)](https://nodei.co/npm/proxyquire-webpack-alias/)
 
-Modification of proxyquire to work with webpack aliases.
+Modification of proxyquire to work with webpack aliases. 
+Proxies commonjs require/es6 import in order to allow overriding dependencies during testing.
+Just hides some webpack magic inside.
 
 # API
 
@@ -53,23 +55,30 @@ const mocked = proxyquire('source.js',{
 // and, finnaly you can be sure, that you do something RIGHT.
 
 // next example will trigger error
-const mocked = proxyquire.noUnusedStubs().('source.js',{
+const mocked = proxyquire.noUnusedStubs().load('source.js',{
   'something': mock,
   'core/something': mock, 
   'component/something': something,// <-- typo. And stub will be unsued.
 });
 ```
  
-If you want to extend proxyquire, and use it indirectly - you have to add some magic
+# Your own setup 
+If you want to extend proxyquire, for example to `setup` it as you want, and use it indirectly - you have to add some magic
 ```js
+// so you are using special version of proxyquire
 import proxyquire from 'my-proxyquire';
 ```
-Where my-proxyquire.js is
+Where my-proxyquire.js is your file
 ```js
 import proxyquire from 'proxyquire-webpack-alias';
 
 // this one creates `special` proxyquire for the file it use
-const myProxyquire = new proxyquire.Class(module.parent);
+const myProxyquire = (new proxyquire.Class(module.parent))
+                     // now you can setup default behavior
+                     .noUnusedStubs().noCallThru();;
+
+
+
 
 // and this prevent caching. So in new place you will get new class
 delete require.cache[require.resolve(__filename)];

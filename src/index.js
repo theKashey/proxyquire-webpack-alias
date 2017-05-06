@@ -19,7 +19,10 @@ function nameResolver(stubs, fileName, module) {
             }
         }
     };
-    return tryPath(requireName) || tryPath(fileName);
+    return (
+        tryPath(requireName) ||
+        tryPath(fileName)
+    );
 }
 
 function transformStubs(stubs) {
