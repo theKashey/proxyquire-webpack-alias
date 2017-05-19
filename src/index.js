@@ -1,5 +1,5 @@
 import {dirname, normalize} from 'path';
-import Proxyquire from 'proxyquire-2/lib/proxyquire';
+import ProxyquireClass from 'proxyquire-2/lib/proxyquire';
 
 import {readAlises, processFile} from './getResolver';
 
@@ -35,13 +35,14 @@ function transformStubs(stubs) {
 }
 
 /**
- * @class WebpackAliasProxyquire
- * @extends {Proxyquire}
+ * @name WebpackAliasProxyquire
+ * @class
+ * @augments Proxyquire
  * @returns {*}
  * @constructor
  */
 function WebpackAliasProxyquire() {
-    var result = Proxyquire.prototype.constructor.apply(this, arguments);
+    var result = ProxyquireClass.prototype.constructor.apply(this, arguments);
     result.resolveNames(nameResolver);
     return result;
 }
@@ -49,7 +50,7 @@ function WebpackAliasProxyquire() {
 /* inherit */
 var F = function () {
 };
-F.prototype = Proxyquire.prototype;
+F.prototype = ProxyquireClass.prototype;
 WebpackAliasProxyquire.prototype = new F();
 
 /* overload */
@@ -57,20 +58,23 @@ WebpackAliasProxyquire.prototype.load = function (request, stubs) {
     if (!settings) {
         configure();
     }
-    return Proxyquire.prototype.load.call(this, request, transformStubs(stubs));
+    return ProxyquireClass.prototype.load.call(this, request, transformStubs(stubs));
 };
 
 const configure = (path) => {
     settings = readAlises(path);
 };
 
-export {
-    configure
-}
-
 // delete this module from the cache to force re-require in order to allow resolving test module via parent.module
 delete require.cache[require.resolve(__filename)];
 
-module.exports = new WebpackAliasProxyquire(module.parent);
-module.exports.Class = WebpackAliasProxyquire;
-module.exports.configure = configure;
+
+export {
+    configure,
+    WebpackAliasProxyquire as Class
+}
+/**
+ * @type {WebpackAliasProxyquire}
+ */
+const proxyquireInstance = new WebpackAliasProxyquire(module.parent);
+export default proxyquireInstance;

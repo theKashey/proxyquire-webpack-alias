@@ -11,11 +11,21 @@ Just hides some webpack magic inside.
 ```js
 import proxyquire, { configure } from 'proxyquire-webpack-alias';
 ```
-For `proxyquire` API see [its repo](https://github.com/theKashey/proxyquire).
-`configire(webpack.alias.conf)` allows you to overwrite location of webpack.aliases configuration file.
-Behavior similar to [babel-plugin-webpack-alias](https://github.com/trayio/babel-plugin-webpack-alias/)
+Next you can use aliases as names of deps to be mocked. 
+So you can use old proxyquire in more modern way.
 
-Next you can use alises as names of deps to be mocked.
+If you prefer using original proxyquire - have a look in [resolveQuire](https://github.com/theKashey/resolveQuire)  
+
+* For details about `proxyquire` API – see [proxyquire documentation](https://github.com/theKashey/proxyquire).
+It is absolutely same.
+
+* `configire(webpack.alias.conf)` allows you to overwrite location of webpack.aliases configuration file.
+By default one will try to find 'webpack.config.js' or 'webpack.config.babel.js' in project root.
+ 
+Alias behavior similar to [babel-plugin-webpack-alias](https://github.com/trayio/babel-plugin-webpack-alias/). 
+As long we `take` some sources from it.
+
+
   
 # Using proxyquire
 

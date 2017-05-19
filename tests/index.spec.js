@@ -14,6 +14,7 @@ describe('proxyquire ', () => {
 
     it('should overload by alias: ', () => {
         configure(aliasConfig);
+        proxyquire
         const baz = proxyquire('./lib/a/test.js', {
             'my-absolute-test-lib/foo': function () {
                 return 'aa'
