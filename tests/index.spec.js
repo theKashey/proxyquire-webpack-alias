@@ -14,7 +14,6 @@ describe('proxyquire ', () => {
 
     it('should overload by alias: ', () => {
         configure(aliasConfig);
-        proxyquire
         const baz = proxyquire('./lib/a/test.js', {
             'my-absolute-test-lib/foo': function () {
                 return 'aa'
@@ -27,5 +26,11 @@ describe('proxyquire ', () => {
             }
         });
         expect(baz()).to.be.equal('aabbcc');
+    });
+
+    it('should load by alias: ', () => {
+        configure(aliasConfig);
+        const baz = proxyquire('my-absolute-test-lib/foo', {});
+        expect(baz()).to.be.equal('foo');
     });
 });

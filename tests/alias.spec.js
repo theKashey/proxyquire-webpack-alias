@@ -25,5 +25,5 @@ describe('aliases', () => {
 
         const newFileName2 = processFile('same-folder-lib/foo.js', aliases);
         expect(newFileName2).to.be.equal(join(process.cwd(), '/tests/lib/b/foo.js'));
-    })
+    });
 });

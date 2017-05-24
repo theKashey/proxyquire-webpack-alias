@@ -34,6 +34,10 @@ function transformStubs(stubs) {
     return result;
 }
 
+function transformName(name, enabled) {
+    return (enabled ? processFile(name, settings) : name) || name;
+}
+
 /**
  * @name WebpackAliasProxyquire
  * @class
@@ -44,6 +48,7 @@ function transformStubs(stubs) {
 function WebpackAliasProxyquire() {
     var result = ProxyquireClass.prototype.constructor.apply(this, arguments);
     result.resolveNames(nameResolver);
+    this._aliasInFileName = true;
     return result;
 }
 
@@ -58,8 +63,27 @@ WebpackAliasProxyquire.prototype.load = function (request, stubs) {
     if (!settings) {
         configure();
     }
-    return ProxyquireClass.prototype.load.call(this, request, transformStubs(stubs));
+    return ProxyquireClass.prototype.load.call(
+        this,
+        transformName(request, this._aliasInFileName),
+        transformStubs(stubs)
+    );
 };
+
+/**
+ * Enable you to use alias in a file names, not only in stubs
+ */
+WebpackAliasProxyquire.prototype.withAliasInFileName = function () {
+    this._aliasInFileName = true;
+}
+
+/**
+ * Enable you to use alias in a file names, not only in stubs
+ */
+WebpackAliasProxyquire.prototype.noAliasInFileName = function () {
+    this._aliasInFileName = false;
+}
+
 
 const configure = (path) => {
     settings = readAlises(path);

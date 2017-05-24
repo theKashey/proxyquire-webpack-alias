@@ -10,22 +10,33 @@ Just hides some webpack magic inside.
 
 ```js
 import proxyquire, { configure } from 'proxyquire-webpack-alias';
+
+configure('your-own-webpack-alias.conf');// optional
+
+proxyquire
+    .anyProxyquireCall()
+    .load('alias/fileName', { 'alias/dep1':{} });
+// you can use webpack-aliased filenames both as module name and stub name.
 ```
-Next you can use aliases as names of deps to be mocked. 
+Now, at last, you can use aliases as names of deps to be mocked. 
 So you can use old proxyquire in more modern way.
 
-If you prefer using original proxyquire - have a look in [resolveQuire](https://github.com/theKashey/resolveQuire)  
+## the other way:
+If you prefer using original proxyquire - have a look in [resolveQuire](https://github.com/theKashey/resolveQuire).
+It is pure functional sugar around it, and enables same features as proxyquire-webpack-alias.
 
-* For details about `proxyquire` API – see [proxyquire documentation](https://github.com/theKashey/proxyquire).
-It is absolutely same.
+## proxyquire - 2
+This library uses proxyquire-2, a bit more powerfull fork of original one.
+For details about `proxyquire-2` API – see [proxyquire documentation](https://github.com/theKashey/proxyquire).
+It is just extends functionality, 100% compatible with old one.
 
+## API
 * `configire(webpack.alias.conf)` allows you to overwrite location of webpack.aliases configuration file.
 By default one will try to find 'webpack.config.js' or 'webpack.config.babel.js' in project root.
+* `defaultExport` - functional class, similar to Proxyquire.
  
 Alias behavior similar to [babel-plugin-webpack-alias](https://github.com/trayio/babel-plugin-webpack-alias/). 
 As long we `take` some sources from it.
-
-
   
 # Using proxyquire
 
@@ -83,12 +94,12 @@ Where my-proxyquire.js is your file
 import proxyquire from 'proxyquire-webpack-alias';
 
 // this one creates `special` proxyquire for the file it use
-const myProxyquire = (new proxyquire.Class(module.parent))
-                     // now you can setup default behavior
-                     .noUnusedStubs().noCallThru();;
-
-
-
+const myProxyquire = 
+    (new proxyquire.Class(module.parent))
+     // now you can setup default behavior     
+     .noUnusedStubs()
+     .noPreserveCache()
+     .noCallThru();
 
 // and this prevent caching. So in new place you will get new class
 delete require.cache[require.resolve(__filename)];
