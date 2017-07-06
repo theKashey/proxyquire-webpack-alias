@@ -53,8 +53,7 @@ function WebpackAliasProxyquire() {
 }
 
 /* inherit */
-var F = function () {
-};
+var F = function () {};
 F.prototype = ProxyquireClass.prototype;
 WebpackAliasProxyquire.prototype = new F();
 
@@ -75,14 +74,16 @@ WebpackAliasProxyquire.prototype.load = function (request, stubs) {
  */
 WebpackAliasProxyquire.prototype.withAliasInFileName = function () {
     this._aliasInFileName = true;
-}
+    return this;
+};
 
 /**
  * Enable you to use alias in a file names, not only in stubs
  */
 WebpackAliasProxyquire.prototype.noAliasInFileName = function () {
     this._aliasInFileName = false;
-}
+    return this;
+};
 
 
 const configure = (path) => {

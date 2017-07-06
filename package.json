@@ -1,8 +1,9 @@
 {
   "name": "proxyquire-webpack-alias",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "Proxyquire for ES5 modules",
   "main": "lib/index.js",
+  "types": "proxyquire.d.ts",
   "scripts": {
     "test": "npm run test:pick -- 'tests/**/*.spec.js'",
     "test:pick": "BABEL_ENV=test mocha --compilers js:babel-core/register",
@@ -31,7 +32,7 @@
   "dependencies": {
     "lodash.some": "^4.6.0",
     "lodash.template": "^4.4.0",
-    "proxyquire-2": "^1.0.5"
+    "proxyquire-2": "^1.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
