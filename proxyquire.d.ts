@@ -1,3 +1,4 @@
+import Proxyquire from 'proxyquire-2';
 /**
  * @name WebpackAliasProxyquire
  * @class
@@ -11,5 +12,5 @@ interface WebpackAliasProxyquire extends Proxyquire {
 
 declare module 'proxyquire-webpack-alias' {
     var p: WebpackAliasProxyquire;
-    export = p;
+    export default p;
 }
