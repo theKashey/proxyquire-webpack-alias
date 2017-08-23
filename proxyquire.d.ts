@@ -11,6 +11,7 @@ interface WebpackAliasProxyquire extends Proxyquire {
 }
 
 declare module 'proxyquire-webpack-alias' {
-    var p: WebpackAliasProxyquire;
-    export default p;
+    var proxyquire_webpack_alias: WebpackAliasProxyquire;
 }
+
+export default proxyquire_webpack_alias;
