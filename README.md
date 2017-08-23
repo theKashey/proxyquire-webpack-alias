@@ -6,6 +6,8 @@ Modification of proxyquire to work with webpack aliases.
 Proxies commonjs require/es6 import in order to allow overriding dependencies during testing.
 Just hides some webpack magic inside.
 
+> Proxyquire-webpack-alias has evolved into [rewiremock](https://github.com/theKashey/rewiremock). If you are looking for a better mocking library, not the way to fix proxyquire - you should try it.
+
 # API
 
 ```js
@@ -29,6 +31,9 @@ It is pure functional sugar around it, and enables same features as proxyquire-w
 This library uses proxyquire-2, a bit more powerfull fork of original one.
 For details about `proxyquire-2` API – see [proxyquire documentation](https://github.com/theKashey/proxyquire).
 It is just extends functionality, 100% compatible with old one.
+
+## rewiremock
+ From some point of view - you should stop using proxyquire. The better ways were invented. Including [rewiremock](https://github.com/theKashey/rewiremock).
 
 ## API
 * `configire(webpack.alias.conf)` allows you to overwrite location of webpack.aliases configuration file.
