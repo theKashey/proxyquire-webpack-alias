@@ -1,6 +1,6 @@
 # proxyquire-webpack-alias [![Build Status](https://secure.travis-ci.org/thekashey/proxyquire-webpack-alias.svg)](http://travis-ci.org/thekashey/proxyquire-webpack-alias)
 
-[![NPM](https://nodei.co/npm/proxyquire-webpack-alias.png?downloads=true&stars=true)](https://nodei.co/npm/proxyquire-webpack-alias/)
+[![NPM](https://nodei.co/npm/proxyquire-webpack-alias.png?downloads=true&stars=true)](https://nodei.co/npm/proxyquire-webpack-alias/) [![Greenkeeper badge](https://badges.greenkeeper.io/theKashey/proxyquire-webpack-alias.svg)](https://greenkeeper.io/)
 
 Modification of proxyquire to work with webpack aliases. 
 Proxies commonjs require/es6 import in order to allow overriding dependencies during testing.
